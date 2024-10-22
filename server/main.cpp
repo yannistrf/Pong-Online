@@ -11,13 +11,9 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#define SERVER_LISTEN_PORT 8080
-#define print_sock_err(str)   perror(str); perror(strerror(errno)); perror("\n");
-#define CLIENT1 1
-#define CLIENT2 2
+#include "common.h"
 
-// TODO: add contructor inside
-typedef struct
+typedef struct UdpInfo
 {
     int recv_fd;
     uint16_t recv_port;
@@ -26,6 +22,17 @@ typedef struct
     int send_fd;
     uint16_t send_port;
     struct sockaddr_in cliaddr;
+
+    UdpInfo()
+    {
+        recv_fd = -1;
+        recv_port = 0;
+        servaddr = {};
+
+        send_fd = -1;
+        send_port = 0;
+        cliaddr = {};
+    }
 
 } UdpInfo;
 
@@ -47,16 +54,6 @@ class Server
 Server::Server(uint16_t tcp_port)
 {
     tcp_port_ = tcp_port;
-
-    client1_info_.recv_fd = -1;
-    client1_info_.send_fd = -1;
-    client1_info_.recv_port = 0;
-    client1_info_.send_port = 0;
-
-    client2_info_.recv_fd = -1;
-    client2_info_.send_fd = -1;
-    client2_info_.recv_port = 0;
-    client2_info_.send_port = 0;
 }
 
 Server::~Server()

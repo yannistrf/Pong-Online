@@ -8,10 +8,9 @@
 #include <arpa/inet.h> 
 #include <netinet/in.h> 
 
-#define SERVER_LISTEN_PORT 8080
-#define print_sock_err(str)   perror(str); perror(strerror(errno)); perror("\n");
+#include "common.h"
 
-typedef struct
+typedef struct UdpInfo
 {
     int recv_fd;
     uint16_t recv_port;
@@ -20,6 +19,18 @@ typedef struct
     int send_fd;
     uint16_t send_port;
     struct sockaddr_in servaddr;
+
+    UdpInfo()
+    {
+        recv_fd = -1;
+        recv_port = 0;
+        cliaddr = {};
+
+        send_fd = -1;
+        send_port = 0;
+        servaddr = {};
+    }
+
 } UdpInfo;
 
 class Client

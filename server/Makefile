@@ -8,7 +8,7 @@ SRCS = main.cpp
 
 OBJS = bin/main.o
 
-INCLUDE = .
+INCLUDE = ..
 
 CFLAGS = -I $(INCLUDE) -Wall -g -Werror
 LDFLAGS = 
